@@ -5,10 +5,11 @@ NAME = libft.a
 SRC_DIR = srcs/
 OBJ_DIR = objs/
 OBJF = objs
-INC = ../
+INC = ../incs
 
 # Ficheros
-SRC_FILES = ft_putchar_fd ft_putstr_fd ft_strlen ft_split ft_strjoin ft_substr ft_strncmp ft_strchr ft_strtrim
+SRC_FILES = ft_putchar_fd ft_putstr_fd ft_strlen ft_split ft_strjoin \
+			ft_substr ft_strncmp ft_strchr ft_strtrim
 SRC = $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 

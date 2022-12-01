@@ -2,13 +2,15 @@
 NAME = pipex
 
 # Directorios
+SRC_DIR = srcs/
 OBJ_DIR = objs/
 OBJF = objs
+INC = incs
 
 # Ficheros
 SRC_FILES = ft_pipex ft_pipex_utils ft_fill
-SRC = $(addsuffix .c, $(SRC_FILES))
-OBJ = $(addsuffix .o, $(SRC_FILES))
+SRC = $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
+OBJ = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 
 # Comandos
 CC = gcc
@@ -16,24 +18,20 @@ CFLAGS = -Wall -Werror -Wextra -g #-fsanitize=address -g3
 RM = rm -f
 AR = ar rcs
 
-.SILENT:
-
 # REGLAS #
 all: $(NAME)
 
-# Compilar conjuntamente y meter los objs en su carpeta correspondiente
-$(NAME): $(OBJ) | $(OBJF)
+# Compilar conjuntamente
+$(NAME): $(OBJ)
 	@$(MAKE) -C ./libft
 	@echo "libft compiled!"
 	@$(CC) $(CFLAGS) $(OBJ) ./libft/libft.a -o $(NAME)
 	@echo "pipex compiled!"
-	@mv $(OBJ) $(OBJ_DIR)
-	@echo "Objects moved to objs file"
 
 # Compilar objetos individualmente
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJF)
 	@echo "Compiling: $<"
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -I $(INC) -c $< -o $@
 
 # Crear directorio temporal para los obj
 $(OBJF):

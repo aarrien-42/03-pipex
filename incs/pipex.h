@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 08:57:58 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/01 16:27:52 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/02 13:11:46 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ int		ft_first_child(t_pipex *gen);
 int		ft_middle_child(t_pipex *gen, int i);
 int		ft_last_child(t_pipex *gen, int i);
 int		ft_pipex(t_pipex *gen);
+
+/*-HERE_DOC-*/
+void	ft_here_doc(char *limit);
 
 /*-UTILS-*/
 void	ft_free_all(t_pipex *gen);

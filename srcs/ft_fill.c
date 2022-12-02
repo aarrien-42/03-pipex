@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 11:59:42 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/01 18:41:04 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/02 11:52:45 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	ft_fill(char **input, t_pipex *gen, int n, char **envp)
 	gen->cmds = malloc((n + 1) * sizeof(char **));
 	while (n - i > 0)
 	{
-		//printf("i = %d y n = %d\n", i, n);
 		gen->path_cmd[i] = ft_cmd_path(input[i], gen);
 		gen->cmds[i] = ft_split(input[i], ' ');
 		i++;

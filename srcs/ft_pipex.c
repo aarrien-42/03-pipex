@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 11:59:42 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/01 18:44:59 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/02 18:40:50 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int	ft_first_child(t_pipex *gen)
 {
 	dup2(gen->fds[0][1], STDOUT_FILENO);
 	ft_close(gen, gen->npipes);
-	execve(gen->path_cmd[0], gen->cmds[0], NULL);
+	if (execve(gen->path_cmd[0], gen->cmds[0], NULL) == -1)
+		write(2, "comando no existe\n", 19);
 	return (0);
 }
 
@@ -25,7 +26,8 @@ int	ft_middle_child(t_pipex *gen, int i)
 	dup2(gen->fds[i - 1][0], STDIN_FILENO);
 	dup2(gen->fds[i][1], STDOUT_FILENO);
 	ft_close(gen, gen->npipes);
-	execve(gen->path_cmd[i], gen->cmds[i], NULL);
+	if (execve(gen->path_cmd[i], gen->cmds[i], NULL) == -1)
+		write(2, "comando no existe\n", 19);
 	return (0);
 }
 
@@ -33,7 +35,8 @@ int	ft_last_child(t_pipex *gen, int i)
 {
 	dup2(gen->fds[i - 1][0], STDIN_FILENO);
 	ft_close(gen, gen->npipes);
-	execve(gen->path_cmd[i], gen->cmds[i], NULL);
+	if (execve(gen->path_cmd[i], gen->cmds[i], NULL) == -1)
+		write(2, "comando no existe\n", 19);
 	return (0);
 }
 
@@ -78,8 +81,12 @@ int	main(int argc, char **argv, char **envp)
 	}
 	else
 	{
-		//ft_fill(&argv[3], &gen, argc - 4, envp);
+		ft_here_doc(argv[2]);
+		gen.inout_fd[0] = open("temp.txt", O_RDONLY);
+		ft_fill(&argv[3], &gen, argc - 4, envp);
 	}
+	if (ft_check(&gen) != 0)
+		exit(0);
 	ft_pipex(&gen);
 	//ft_print_struct(&gen);
 	exit(0);

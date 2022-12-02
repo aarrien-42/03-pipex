@@ -8,7 +8,7 @@ OBJF = objs
 INC = incs
 
 # Ficheros
-SRC_FILES = ft_pipex ft_pipex_utils ft_fill
+SRC_FILES = ft_pipex ft_pipex_utils ft_fill ft_here_doc
 SRC = $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 

@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:34:22 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/01 18:43:52 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/02 11:50:16 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ int	ft_check(t_pipex *gen)
 
 	i = 0;
 	if (gen->inout_fd[0] == -1 || gen->inout_fd[1] == -1)
-		return (1); // archivo de entrada o salida incorrecto
+		return (write(2, "in o out incorrecto\n", 21), 1); // archivo de entrada o salida incorrecto
 	if (gen->npipes == 0)
-		return (2); // comandos insuficientes
+		return (write(2, "comandos insuficientes\n", 24), 2); // comandos insuficientes
 	while (i < gen->npipes)
 	{
 		if (gen->path_cmd[i] == NULL)
-			return (3); // el comando no existe
-		i++;
+			return (write(2, "comando inexistente\n", 21), 3); // el comando no existe
+		i++; // no llega hasta aqui
 	}
 	return (0);
 }

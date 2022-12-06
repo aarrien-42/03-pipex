@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 08:57:58 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/05 12:41:30 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/06 17:13:55 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,19 @@ typedef struct s_pipex
 }				t_pipex;
 
 /*-PIPEX-*/
-int		ft_first_child(t_pipex *gen);
-int		ft_middle_child(t_pipex *gen, int i);
-int		ft_last_child(t_pipex *gen, int i);
+void	ft_first_child(t_pipex *gen);
+void	ft_middle_child(t_pipex *gen, int i);
+void	ft_last_child(t_pipex *gen, int i);
 int		ft_pipex(t_pipex *gen);
 
 /*-HERE_DOC-*/
+char	*ft_get_line(void);
 void	ft_here_doc(char *limit);
 
 /*-UTILS-*/
-void	ft_error_msg(char *s1, char *s2);
+int		ft_check_empty(char **argv);
+void	ft_error_msg(char *s1, char *s2, t_pipex *gen);
 void	ft_free_all(t_pipex *gen);
-int		ft_check(t_pipex *gen, char **argv);
 void	ft_close(t_pipex *gen, int n);
 void	ft_free_split(char **split);
 void	ft_print_struct(t_pipex *gen);

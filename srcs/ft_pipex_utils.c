@@ -6,11 +6,25 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:34:22 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/06 11:38:20 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/06 17:13:22 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+int	ft_check_empty(char **argv)
+{
+	int		i;
+
+	i = 0;
+	while (argv[i])
+	{
+		if (*argv[i] == 0)
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 void	ft_free_all(t_pipex *gen)
 {
@@ -18,47 +32,32 @@ void	ft_free_all(t_pipex *gen)
 
 	i = 0;
 	ft_free_split(gen->paths);
-	while (i < gen->npipes)
+	while (i < gen->npipes + 1)
 	{
-		if (gen->path_cmd[i] != NULL)
+		if (gen->path_cmd[i])
 			free(gen->path_cmd[i]);
 		i++;
 	}
 	free(gen->path_cmd);
 	i = 0;
 	while (gen->cmds[i])
-	{
-		ft_free_split(gen->cmds[i]);
-		i++;
-	}
+		ft_free_split(gen->cmds[i++]);
 	free(gen->cmds);
+	i = 0;
+	while (gen->npipes - i > 0)
+		free(gen->fds[i++]);
+	free(gen->fds);
 	exit(0);
 }
 
-void	ft_error_msg(char *s1, char *s2)
+void	ft_error_msg(char *s1, char *s2, t_pipex *gen)
 {
 	ft_putstr_fd(s1, 2);
 	ft_putstr_fd(s2, 2);
 	ft_putstr_fd("\n", 2);
-	exit(0);
-}
-
-int	ft_check(t_pipex *gen, char **argv)
-{
-	int	i;
-
-	i = 0;
-	if (gen->inout_fd[0] == -1)
-		ft_error_msg("zsh: no such file or directory: ", argv[1]);
-	if (gen->npipes <= 0)
-		return (write(2, "comandos insuficientes\n", 24), 2);
-	while (i < gen->npipes)
-	{
-		if (gen->path_cmd[i] == NULL)
-			ft_error_msg("zsh: command not found: ", gen->cmds[i][0]);
-		i++;
-	}
-	return (0);
+	printf("gen->paths[1] = %s\n\n", gen->paths[1]);
+	if (gen->paths[1] != 0 && gen->cmds)
+		ft_free_all(gen);
 }
 
 void	ft_close(t_pipex *gen, int n)
@@ -80,10 +79,7 @@ void	ft_free_split(char **split)
 
 	i = 0;
 	while (split[i])
-	{
-		free(split[i]);
-		i++;
-	}
+		free(split[i++]);
 	free(split);
 }
 
@@ -96,8 +92,8 @@ void	ft_print_struct(t_pipex *gen)
 	j = 0;
 	printf("|------------------------------|\n");
 	printf("\n|INOUT_FD|\n");
-	printf("infile_fd = %d\n", gen->inout_fd[0]);
-	printf("outfile_fd = %d\n", gen->inout_fd[1]);
+	printf("gen->inout_fd[0] = %d\n", gen->inout_fd[0]);
+	printf("gen->inout_fd[1] = %d\n", gen->inout_fd[1]);
 	printf("|------------------------------|\n");
 	printf("\n|PATHS|\n");
 	while (gen->paths[i])

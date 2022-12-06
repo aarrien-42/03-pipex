@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 11:59:42 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/02 11:52:45 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/06 17:00:55 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,10 @@ char	*ft_cmd_path(char *cmd, t_pipex *gen)
 		if (access(tmp, F_OK | X_OK) == 0)
 			break ;
 		free(tmp);
-		tmp = 0;
 		i++;
 	}
+	if (!gen->paths[i])
+		tmp = 0;
 	ft_free_split(s_cmd);
 	return (tmp);
 }
@@ -81,4 +82,6 @@ void	ft_fill(char **input, t_pipex *gen, int n, char **envp)
 		pipe(gen->fds[i]);
 		i++;
 	}
+	if (gen->inout_fd[0] == -1)
+		ft_error_msg("zsh: no such file or directory: ", input[-1], gen);
 }

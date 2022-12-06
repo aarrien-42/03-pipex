@@ -6,13 +6,13 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 12:58:12 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/02 18:44:15 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/05 12:33:24 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	*ft_get_line()
+char	*ft_get_line(void)
 {
 	char	c;
 	char	*str;
@@ -41,7 +41,7 @@ void	ft_here_doc(char *limit)
 	size_t	limit_len;
 
 	limit_len = ft_strlen(limit);
-	fd = open("temp.txt", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	fd = open(".temp.txt", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	while (1)
 	{
 		line = ft_get_line();
@@ -53,5 +53,4 @@ void	ft_here_doc(char *limit)
 	}
 	free(line);
 	close(fd);
-	//unlink("temp.txt");
 }

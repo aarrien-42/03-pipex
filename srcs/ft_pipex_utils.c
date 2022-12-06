@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:34:22 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/02 11:50:16 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/06 11:38:20 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,28 @@ void	ft_free_all(t_pipex *gen)
 	exit(0);
 }
 
-int	ft_check(t_pipex *gen)
+void	ft_error_msg(char *s1, char *s2)
+{
+	ft_putstr_fd(s1, 2);
+	ft_putstr_fd(s2, 2);
+	ft_putstr_fd("\n", 2);
+	exit(0);
+}
+
+int	ft_check(t_pipex *gen, char **argv)
 {
 	int	i;
 
 	i = 0;
-	if (gen->inout_fd[0] == -1 || gen->inout_fd[1] == -1)
-		return (write(2, "in o out incorrecto\n", 21), 1); // archivo de entrada o salida incorrecto
-	if (gen->npipes == 0)
-		return (write(2, "comandos insuficientes\n", 24), 2); // comandos insuficientes
+	if (gen->inout_fd[0] == -1)
+		ft_error_msg("zsh: no such file or directory: ", argv[1]);
+	if (gen->npipes <= 0)
+		return (write(2, "comandos insuficientes\n", 24), 2);
 	while (i < gen->npipes)
 	{
 		if (gen->path_cmd[i] == NULL)
-			return (write(2, "comando inexistente\n", 21), 3); // el comando no existe
-		i++; // no llega hasta aqui
+			ft_error_msg("zsh: command not found: ", gen->cmds[i][0]);
+		i++;
 	}
 	return (0);
 }

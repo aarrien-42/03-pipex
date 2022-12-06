@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 08:57:58 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/02 13:11:46 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/05 12:41:30 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ int		ft_pipex(t_pipex *gen);
 void	ft_here_doc(char *limit);
 
 /*-UTILS-*/
+void	ft_error_msg(char *s1, char *s2);
 void	ft_free_all(t_pipex *gen);
-int		ft_check(t_pipex *gen);
+int		ft_check(t_pipex *gen, char **argv);
 void	ft_close(t_pipex *gen, int n);
 void	ft_free_split(char **split);
 void	ft_print_struct(t_pipex *gen);

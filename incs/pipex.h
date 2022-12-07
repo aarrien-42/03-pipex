@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 08:57:58 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/07 11:50:30 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/07 13:59:26 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,14 @@ char	*ft_get_line(void);
 void	ft_here_doc(char *limit);
 
 /*-UTILS-*/
-int		ft_check(char **argv, int argc);
+int		ft_check(char **av, int ac);
 void	ft_error_msg(char *s1, char *s2, t_pipex *gen, int code);
 void	ft_free_all(t_pipex *gen, int code);
 void	ft_close(t_pipex *gen, int n);
 void	ft_free_split(char **split);
-void	ft_print_struct(t_pipex *gen);
 
 /*-FILL-*/
-void	ft_check_files(char **argv, int argc, t_pipex *gen);
+void	ft_check_files(char **av, int ac, t_pipex *gen);
 void	ft_save_paths(char **envp, t_pipex *gen);
 char	*ft_cmd_path(char *cmd, t_pipex *gen);
 char	**ft_prepare_exec(char *cmd, t_pipex *gen);

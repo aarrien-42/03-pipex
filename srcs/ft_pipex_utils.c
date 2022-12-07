@@ -6,22 +6,22 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:34:22 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/07 11:48:29 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/07 13:57:08 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	ft_check(char **argv, int argc)
+int	ft_check(char **av, int ac)
 {
 	int		i;
 
 	i = 0;
-	if (argc == 1)
+	if (ac == 1)
 		return (ft_putstr_fd("no arguments supplied\n", 2), 1);
-	while (argv[i])
+	while (av[i])
 	{
-		if (*argv[i] == 0)
+		if (*av[i] == 0)
 			return (ft_putstr_fd("empty argument\n", 2), 1);
 		i++;
 	}

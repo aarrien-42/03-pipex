@@ -6,26 +6,25 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 11:59:42 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/07 12:06:09 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/07 13:58:13 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	ft_check_files(char **argv, int argc, t_pipex *gen)
+void	ft_check_files(char **av, int ac, t_pipex *gen)
 {
 	int	i;
 
-	if (ft_strncmp(argv[1], "here_doc", 9) != 0)
+	i = 0;
+	if (ft_strncmp(av[1], "here_doc", 9) != 0)
 		i = 1;
-	else
-		i = 3;
-	if (access(argv[i], F_OK) == -1)
-		ft_error_msg("zsh: no such file or directory: ", argv[i], gen, 1);
+	if (i != 0 && access(av[i], F_OK) == -1)
+		ft_error_msg("zsh: no such file or directory: ", av[i], gen, 1);
 	if (write(gen->inout_fd[1], 0, 0) == -1)
-		ft_error_msg("zsh: permission denied: ", argv[argc - 1], gen, 2);
+		ft_error_msg("zsh: permission denied: ", av[ac - 1], gen, 2);
 	if (read(gen->inout_fd[0], 0, 0) == -1)
-		ft_error_msg("zsh: permission denied: ", argv[i], gen, 3);
+		ft_error_msg("zsh: permission denied: ", av[i], gen, 3);
 }
 
 void	ft_save_paths(char **envp, t_pipex *gen)

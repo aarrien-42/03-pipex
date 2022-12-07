@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 11:59:42 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/07 12:06:28 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/07 13:56:10 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,29 +78,30 @@ int	ft_pipex(t_pipex *gen)
 	return (0);
 }
 
-int	main(int argc, char **argv, char **envp)
+int	main(int ac, char **av, char **envp)
 {
 	t_pipex	gen;
 
-	if (ft_check(argv, argc) == 1)
+	if (ft_check(av, ac) == 1)
 		return (1);
-	gen.inout_fd[1] = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (ft_strncmp(argv[1], "here_doc", 9) != 0)
+	if (ft_strncmp(av[1], "here_doc", 9) != 0)
 	{
-		if (argc - 3 <= 1)
+		if (ac - 3 <= 1)
 			return (ft_putstr_fd("too few commands\n", 2), 2);
-		gen.inout_fd[0] = open(argv[1], O_RDONLY);
-		ft_fill(&argv[2], &gen, argc - 3, envp);
+		gen.inout_fd[1] = open(av[ac - 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		gen.inout_fd[0] = open(av[1], O_RDONLY);
+		ft_fill(&av[2], &gen, ac - 3, envp);
 	}
 	else
 	{
-		if (argc - 4 <= 1)
+		if (ac - 4 <= 1)
 			return (ft_putstr_fd("too few commands\n", 2), 2);
-		ft_here_doc(argv[2]);
+		ft_here_doc(av[2]);
+		gen.inout_fd[1] = open(av[ac - 1], O_CREAT | O_WRONLY | O_APPEND, 0644);
 		gen.inout_fd[0] = open(".temp.txt", O_RDONLY);
-		ft_fill(&argv[3], &gen, argc - 4, envp);
+		ft_fill(&av[3], &gen, ac - 4, envp);
 	}
-	ft_check_files(argv, argc, &gen);
+	ft_check_files(av, ac, &gen);
 	ft_pipex(&gen);
 	unlink(".temp.txt");
 	ft_free_all(&gen, 0);

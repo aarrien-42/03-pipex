@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 11:59:42 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/07 13:56:10 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/08 13:50:15 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,5 @@ int	main(int ac, char **av, char **envp)
 	}
 	ft_check_files(av, ac, &gen);
 	ft_pipex(&gen);
-	unlink(".temp.txt");
 	ft_free_all(&gen, 0);
 }

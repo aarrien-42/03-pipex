@@ -6,7 +6,7 @@
 /*   By: aarrien- <aarrien-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:34:22 by aarrien-          #+#    #+#             */
-/*   Updated: 2022/12/07 13:57:08 by aarrien-         ###   ########.fr       */
+/*   Updated: 2022/12/08 14:12:45 by aarrien-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	ft_free_all(t_pipex *gen, int code)
 	while (gen->npipes - i > 0)
 		free(gen->fds[i++]);
 	free(gen->fds);
+	unlink(".temp.txt");
 	exit(code);
 }
 
@@ -57,7 +58,7 @@ void	ft_error_msg(char *s1, char *s2, t_pipex *gen, int code)
 	ft_putstr_fd(s1, 2);
 	ft_putstr_fd(s2, 2);
 	ft_putstr_fd("\n", 2);
-	if (gen->paths[1] != 0 && gen->cmds)
+	if (gen->paths[0] != 0)
 		ft_free_all(gen, code);
 }
 
